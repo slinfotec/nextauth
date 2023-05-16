@@ -9,8 +9,8 @@ export default async function handler(
 ) {
   const { email, password } = req.body;
 
-  const exists = await pool.query("select * from User where email='" + email + "' LIMIT 1");
-  if (exists.length > 0) {
+  const exists = await pool.query("select * from User where email='" + email + "'");
+  if (exists) {
     res.status(400).send("User already exists");
   } else {   
     const user = await pool.query("insert into User(email,password) values('" + email + "',sha1('" + password + "'))");
