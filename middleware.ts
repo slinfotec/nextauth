@@ -22,9 +22,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("test?session_token=123456", req.url));
   }
 
-if(!session && path.startsWith("/api")){
-  return;
-}
+
 
   return NextResponse.next();
 }

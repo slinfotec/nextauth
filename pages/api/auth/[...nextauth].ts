@@ -16,11 +16,17 @@ export default NextAuth({
         if (!email || !password) {
           throw new Error("Missing username or password");
         }
-        const user = await pool.query("select * from User where email ='" + email + "' and password =sha1('" + password + "') LIMIT 1");
+        interface Users {
+          id: number;
+          name: string;
+          email: string;
+        }
+        let user: Users[] = await pool.query("select * from User where email ='" + email + "' and password =sha1('" + password + "') LIMIT 1");
         // if user doesn't exist or password doesn't match
         if (!user) {
           throw new Error("Invalid username or password");
         }
+        console.log(user)
         return user;
       },
     }),
